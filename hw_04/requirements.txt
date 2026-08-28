@@ -1,0 +1,23 @@
+# Прямые зависимости задания hw_04 (portfolio_strategies.ipynb).
+# Установка:  python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+
+# --- данные и вычисления ---
+numpy==2.4.6
+pandas==3.0.5
+scipy==1.17.1
+scikit-learn==1.9.0
+
+# --- портфельная оптимизация (Марковиц, эффективная граница, дискретная аллокация) ---
+PyPortfolioOpt==1.6.0
+cvxpy==1.9.2
+
+# --- визуализация и дашборд ---
+matplotlib==3.11.1
+seaborn==0.13.2
+plotly==7.0.0
+
+# --- Jupyter ---
+jupyter==1.1.1
+ipykernel==7.3.0
+nbformat==5.11.1
+nbconvert==7.17.1
