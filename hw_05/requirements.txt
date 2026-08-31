@@ -1,0 +1,59 @@
+# Зависимости ДЗ №5 (technical_analysis.ipynb): конвейер технического анализа
+# из ДЗ №3 плюс модели последовательностей — TimesNet, TSMixer, TimesFM 2.0.
+#
+# Установка (Python 3.11, нужна CUDA-видеокарта; на CPU ноутбук тоже пройдёт,
+# но TimesFM 2.0 на 500M параметров будет считаться часами):
+#
+#   python3.11 -m venv .venv
+#   ./.venv/bin/pip install --index-url https://download.pytorch.org/whl/cu126 torch==2.7.1
+#   ./.venv/bin/pip install -r requirements.txt
+#   ./.venv/bin/python -m ipykernel install --user --name hw05-nn \
+#       --display-name "Python (hw_05 NN)"
+#
+# Проверка окружения:
+#   ./.venv/bin/python -c "import torch, neuralforecast, transformers; \
+#       print(torch.cuda.is_available())"
+#
+# ПОЧЕМУ numpy 1.x и pandas 2.x. Ноутбуки ДЗ №3 и ДЗ №4 работают на
+# numpy 2.4 / pandas 3.0, но neuralforecast 2.0.1 и transformers с ними
+# несовместимы, поэтому у ДЗ №5 отдельное окружение с более старым ядром.
+# Код признаков и бэктеста (ta_lib.py) от версии не зависит и работает в обоих.
+
+# --- ядро: версии, с которыми работают библиотеки прогнозирования ---
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.13.1
+scikit-learn==1.5.2
+
+# --- torch ---
+# Ставится ОТДЕЛЬНОЙ командой с индекса PyTorch (см. выше), иначе pip
+# притянет сборку под другую версию CUDA:
+#   pip install --index-url https://download.pytorch.org/whl/cu126 torch==2.7.1
+torch==2.7.1
+
+# --- TimesNet и TSMixer ---
+# Обе архитектуры выписаны в разделе 17 ноутбука прямо на torch (по статьям
+# ICLR 2023 и TMLR 2023); библиотеки ниже нужны как альтернативная реализация
+# и как источник версионных ограничений окружения.
+# neuralforecast 2.0.1 выбрана намеренно: 3.x требует torch>=2.9.
+neuralforecast==2.0.1
+pytorch-lightning==2.6.5
+
+# --- TimesFM 2.0: веса google/timesfm-2.0-500m-pytorch и код из transformers ---
+transformers==4.57.1
+accelerate==1.14.0
+
+# --- точки отсчёта из ДЗ №2 и ДЗ №3 ---
+catboost==1.2.7
+
+# --- подбор гиперпараметров ---
+optuna==4.9.0
+
+# --- визуализация и дашборд ---
+matplotlib==3.9.2
+
+# --- Jupyter ---
+jupyterlab==4.2.5
+ipykernel==6.29.5
+nbformat==5.10.4
+nbconvert==7.16.4
