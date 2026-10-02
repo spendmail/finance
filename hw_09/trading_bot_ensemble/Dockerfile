@@ -1,7 +1,7 @@
-# Торговый бот BTC/USDT perpetual (Bybit): CatBoost + стоп-лосс 3%
+# Торговый бот BTC/USDT perpetual (Bybit): ансамбль LogReg + DecisionTree + CatBoost, SL 3% + безубыток 5%
 FROM python:3.11-slim
 
-# libgomp1 — OpenMP-рантайм для CatBoost; tini — корректная передача SIGTERM процессу бота
+# libgomp1 — OpenMP-рантайм для CatBoost и scikit-learn; tini — корректная передача SIGTERM боту
 RUN apt-get update \
  && apt-get install -y --no-install-recommends libgomp1 tini \
  && rm -rf /var/lib/apt/lists/*
@@ -14,7 +14,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# код и обученная модель; секреты (.env) в образ не попадают — см. .dockerignore
+# код и обученные модели; секреты (.env) в образ не попадают — см. .dockerignore
 COPY bot.py bybit_client.py features.py market_cache.py risk.py strategy.py ./
 COPY artifacts/ ./artifacts/
 

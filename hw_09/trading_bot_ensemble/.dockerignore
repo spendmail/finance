@@ -1,0 +1,10 @@
+.env
+.env.*
+runtime/
+logs/
+state.json
+state.json.tmp
+bot.pid
+__pycache__/
+*.pyc
+train.py

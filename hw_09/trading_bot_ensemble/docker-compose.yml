@@ -1,0 +1,17 @@
+services:
+  bot:
+    build: .
+    image: btc-ensemble-bot:latest
+    container_name: btc-ensemble-bot
+    # секреты и параметры (ключи API, прокси, лимиты риска) — из .env рядом с этим файлом
+    env_file: .env
+    # состояние (state.json), логи, рубильник HALT и heartbeat переживают пересоздание контейнера
+    volumes:
+      - ./runtime:/app/runtime
+    restart: unless-stopped
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
